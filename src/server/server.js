@@ -1,27 +1,30 @@
 const express = require('express');
-import webpack from 'webpack';
-import webpackDevMiddelware from 'webpack-dev-middleware';
-import webpackConfig from '../../webpack.config';
-
-const bodyParser = require('body-parser');
-
-
 const app = express();
 
-app.use(bodyParser.urlencoded({extended:false}));
-app.use(bodyParser.json());
+const pathroute = require('path');
+app.use(express.static( pathroute.resolve('./src/client')));
 
-app.set('port', process.env.PORT || 3000);
-app.set('json spaces', 2);
+const environment = require('./environment');
+const fetch = require('node-fetch');
+const path = '/posts';
 
-app.use(webpackDevMiddelware(webpack(webpackConfig)));
-
-app.use(require('./routes/index'));
-app.use('/api/posts',require('./routes/posts'));
-
-app.listen(app.get('port'), () => {
-    console.log('server on port', app.get('port'));
+app.get('/api/posts', async (req, res) => {
+    const response = await fetch(environment.apiEndpoint + path);
+    if (response.status >= 400) throw new Error(data.errors);
+    const data = await response.json();
+    return res.json(data);
 });
 
+app.get('/api/posts/:id', async (req,res) => {
+    const id = req.params.id;
+    const response = await fetch(environment.apiEndpoint + path + `/${id}`);
+    if (response.status >= 400) throw new Error(data.errors);
+    const data = await response.json();
+    return res.json(data);
+});
+
+app.listen(8080, function () {
+    console.log('server on port 8080');
+});
 
 module.exports = app;

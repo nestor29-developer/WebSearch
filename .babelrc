@@ -1,6 +1,9 @@
 {
-    "presets": [
-      "@babel/preset-env",
-      "@babel/preset-react"
-    ]
-  }
+  "presets": [["@babel/preset-env", {
+    "corejs": 3.6,
+    "useBuiltIns": "usage"
+  }], "@babel/preset-react"],
+  "plugins": ["transform-class-properties"]
+}
+
+  
