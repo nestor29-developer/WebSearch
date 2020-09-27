@@ -10,11 +10,10 @@ The site has the following features:
 - Editing of body and title of posts saving them in cache
 
 ## Setup
-In the project directory, you can run:
+In the project directory, you must run:
 
 ```sh
 npm install
-npm run webpack -- --mode production --watch
 npm run dev
 ```
 
@@ -23,3 +22,6 @@ npm run dev
 ```sh
 npm test
 ```
+
+## Optional if require to reload the bundle.js
+npm run webpack -- --mode production --watch
